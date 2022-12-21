@@ -22,6 +22,7 @@ val Scala3 = "3.2.1"
 
 ThisBuild / crossScalaVersions := Seq(Scala212, Scala213, Scala3)
 ThisBuild / scalaVersion := Scala213
+ThisBuild / version := "2.9.0"
 
 ThisBuild / tlFatalWarnings := false
 ThisBuild / tlFatalWarningsInCi := false
@@ -79,10 +80,10 @@ lazy val disciplineDependencies = Seq(
 )
 
 lazy val testingDependencies = Seq(
-  libraryDependencies ++= Seq(
-    "org.scalameta" %%% "munit" % munitVersion % Test,
-    "org.typelevel" %%% "discipline-munit" % disciplineMunitVersion % Test
-  )
+  // libraryDependencies ++= Seq(
+  //   "org.scalameta" %%% "munit" % munitVersion % Test,
+  //   "org.typelevel" %%% "discipline-munit" % disciplineMunitVersion % Test
+  // )
 )
 
 lazy val root = tlCrossRootProject
@@ -145,7 +146,7 @@ lazy val algebra = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .nativeSettings(commonNativeSettings)
   .settings(
     algebraSettings,
-    libraryDependencies += "org.scalacheck" %%% "scalacheck" % scalaCheckVersion % Test,
+    // libraryDependencies += "org.scalacheck" %%% "scalacheck" % scalaCheckVersion % Test,
     testingDependencies
   )
   .nativeSettings(algebraNativeSettings)
@@ -169,7 +170,7 @@ lazy val core = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .settings(macroSettings)
   .settings(Compile / sourceGenerators += (Compile / sourceManaged).map(Boilerplate.gen).taskValue)
   .settings(
-    libraryDependencies += "org.scalacheck" %%% "scalacheck" % scalaCheckVersion % Test,
+    // libraryDependencies += "org.scalacheck" %%% "scalacheck" % scalaCheckVersion % Test,
     Compile / doc / scalacOptions ~= { _.filterNot(_.startsWith("-W")) } // weird bug
   )
   .settings(testingDependencies)
